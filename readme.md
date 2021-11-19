@@ -16,10 +16,9 @@ virtualenv venv
 
 `pip install -r requirements.txt`
 
-4. deactivate
+4. Create env file and fill out variables
 
-`deactivate`
+`cp .flaskenv-example .flaskenv
 
-5. save modules / dependencies into file (manual update needed!)
-
-`pip freeze > requirments.txt`
+5. Start the app
+`flask run`

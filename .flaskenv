@@ -1,0 +1,8 @@
+FLASK_APP=app.py
+FLASK_ENV=development
+FLASK_DEBUG=True
+FLASK_RUN_HOST=0.0.0.0
+FLASK_RUN_PORT=5000
+SQLALCHEMY_TRACK_MODIFICATIONS=False
+DB_URL='sqlite:///car_fleet.sqlite'
+SECRET_KEY='oftv97f9'
