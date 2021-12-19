@@ -28,7 +28,16 @@ class CarPosition(Resource):
     car_position = PositionModel(date=now(),
                                  latitude=data['latitude'],
                                  longitude=data['longitude'],
+                                 address=PositionModel.resolve_address(
+                                     data['latitude'], data['longitude']),
                                  car_id=car.id)
+
+    # try:
+    #   car_position.address = PositionModel.resolve_address(
+    #       data['latitude'], data['longitude'])
+    #   print(car_position.address)
+    # except:
+    #   pass
 
     try:
       car_position.save_to_db()
