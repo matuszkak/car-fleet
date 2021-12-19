@@ -2,6 +2,7 @@ from models.car import CarModel
 from flask_restful import Resource, reqparse
 from models.driver import DriverModel
 from db import db
+from models.model_mixin import MixinModel
 
 
 class AssignDriverToCar(Resource):
@@ -18,10 +19,10 @@ class AssignDriverToCar(Resource):
   def post(self):
     data = AssignDriverToCar.parser.parse_args()
 
-    driver = DriverModel.find_by_id(data['driver_id'])
+    driver = DriverModel.find_by_attribute(id=data['driver_id'])
     if not driver:
       return {"message": "Driver does not exist"}, 404
-    car = CarModel.find_by_id(data['car_id'])
+    car = CarModel.find_by_attribute(id=data['car_id'])
     if not car:
       return {"message": "Car does not exist"}, 404
     print(car.driver_id)

@@ -1,16 +1,17 @@
 from flask_restful import Resource
 from models.fleet import FleetModel
+from models.model_mixin import MixinModel
 
 
 class Fleet(Resource):
   def get(self, name):
-    fleet = FleetModel.find_by_name(name)
+    fleet = FleetModel.find_by_attribute(name=name)
     if fleet:
       return fleet.json()
     return {'message': 'Fleet not found'}, 404
 
   def post(self, name):
-    if FleetModel.find_by_name(name):
+    if FleetModel.find_by_attribute(name=name):
       return {
           'message': "A fleet with name '{}' already exists.".format(name)
       }, 400
@@ -24,7 +25,7 @@ class Fleet(Resource):
     return fleet.json(), 201
 
   def delete(self, name):
-    fleet = FleetModel.find_by_name(name)
+    fleet = FleetModel.find_by_attribute(name=name)
     if fleet:
       fleet.delete_from_db()
 

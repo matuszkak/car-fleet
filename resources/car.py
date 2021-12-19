@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.car import CarModel
 from flask_jwt import jwt_required
+from models.model_mixin import MixinModel
 
 
 class CarList(Resource):
@@ -20,7 +21,7 @@ class Car(Resource):
                       help='The type field can not be blank!')
 
   def post(self, plate):
-    if CarModel.find_by_plate(plate):
+    if CarModel.find_by_attribute(license_plate=plate):
       return {'message': f'This car with plate {plate} already exists'}, 400
     data = Car.parser.parse_args()
     car = CarModel(plate, data['type'])
@@ -32,7 +33,7 @@ class Car(Resource):
 
   @jwt_required()
   def get(self, plate):
-    car = CarModel.find_by_plate(plate)
+    car = CarModel.find_by_attribute(license_plate=plate)
     if car:
       return car.json()
     return {'message': 'car not found'}, 404
