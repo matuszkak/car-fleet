@@ -1,7 +1,8 @@
 from db import db, BaseModel
+from models.model_mixin import MixinModel
 
 
-class PositionModel(BaseModel):
+class PositionModel(BaseModel, MixinModel):
   __tablename__ = 'positions'
 
   id = db.Column(db.Integer, primary_key=True)
