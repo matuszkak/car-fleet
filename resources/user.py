@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.user import UserModel
 from models.model_mixin import MixinModel
+from security import hash_password
 
 
 class UserRegister(Resource):
@@ -20,7 +21,7 @@ class UserRegister(Resource):
     if UserModel.find_by_attribute(username=data['username']):
       return {"message": "A user with that username already exists"}, 400
 
-    user = UserModel(data['username'], data['password'])
+    user = UserModel(data['username'], hash_password(data['password']))
     user.save_to_db()
 
     return {"message": "User created successfully."}, 201
